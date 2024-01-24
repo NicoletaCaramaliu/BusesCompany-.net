@@ -1,6 +1,6 @@
 ﻿namespace Proiect_final.Models.Bus.DTO
 {
-    public class BusRespondeDto
+    public class BusResponseDto
     {
         public Guid Id { get; set; }
         public string Number { get; set; }
