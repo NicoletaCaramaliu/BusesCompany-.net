@@ -6,5 +6,7 @@ namespace Proiect_final.Repositories.BusRepository
     public interface IBusRepository : IGenericRepository<Bus>
     {
 
+     
+
     }
 }

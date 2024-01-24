@@ -37,5 +37,21 @@ namespace Proiect_final.Services.BusService
             _busRepository.Delete(bus);
             await _busRepository.SaveAsync();
         }
+
+        //get bus by number
+        public async Task<Bus> GetBusByNumber(string number)
+        {
+            return await _busRepository.FindSingleOrDefaultAsync(b => b.Number == number);
+        }
+
+        //update bus
+        public async Task UpdateBus(Bus bus)
+        {
+            _busRepository.Update(bus);
+            await _busRepository.SaveAsync();
+        }
+
+
+
     }
 }

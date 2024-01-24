@@ -8,8 +8,9 @@ namespace Proiect_final.Repositories.BusRepository
     {
         public BusRepository(ApiDbContext context) : base(context)
         {
-            
 
         }
+        //order buses descending by capacity
+
     }
 }

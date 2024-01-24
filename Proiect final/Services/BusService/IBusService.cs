@@ -13,5 +13,11 @@ namespace Proiect_final.Services.BusService
 
         //delete bus
         Task DeleteBus(Bus bus);
+
+        //get bus by number
+        Task<Bus> GetBusByNumber(string number);
+
+        //update bus
+        Task UpdateBus(Bus bus);
     }
 }
