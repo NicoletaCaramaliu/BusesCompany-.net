@@ -8,8 +8,7 @@ namespace Proiect_final.Models.Base
     {
 
         [Key]
-        [DatabaseGenerated (DatabaseGeneratedOption.Identity)]
-        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
