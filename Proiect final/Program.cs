@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Proiect_final.Data;
+using Proiect_final.Helpers;
+using Proiect_final.Helpers.Extensions;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,13 +17,17 @@ builder.Services.AddDbContext<ApiDbContext>(options =>
 
 builder.Services.AddControllers();
 
+builder.Services.AddRepositories();
+builder.Services.AddServices();
 
+//add auto mapper
+builder.Services.AddAutoMapper(typeof(MapperProfile));
 
-
-var app = builder.Build();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
