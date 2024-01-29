@@ -22,6 +22,45 @@ namespace Proiect_final.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Proiect_final.Models.Adress.Adress", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DriverId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DriverId")
+                        .IsUnique()
+                        .HasFilter("[DriverId] IS NOT NULL");
+
+                    b.ToTable("Adresses");
+                });
+
             modelBuilder.Entity("Proiect_final.Models.Bus.Bus", b =>
                 {
                     b.Property<Guid>("Id")
@@ -85,6 +124,15 @@ namespace Proiect_final.Migrations
                     b.ToTable("Drivers");
                 });
 
+            modelBuilder.Entity("Proiect_final.Models.Adress.Adress", b =>
+                {
+                    b.HasOne("Proiect_final.Models.Driver.Driver", "Driver")
+                        .WithOne("Adress")
+                        .HasForeignKey("Proiect_final.Models.Adress.Adress", "DriverId");
+
+                    b.Navigation("Driver");
+                });
+
             modelBuilder.Entity("Proiect_final.Models.Driver.Driver", b =>
                 {
                     b.HasOne("Proiect_final.Models.Bus.Bus", "Bus")
@@ -97,6 +145,12 @@ namespace Proiect_final.Migrations
             modelBuilder.Entity("Proiect_final.Models.Bus.Bus", b =>
                 {
                     b.Navigation("Drivers");
+                });
+
+            modelBuilder.Entity("Proiect_final.Models.Driver.Driver", b =>
+                {
+                    b.Navigation("Adress")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

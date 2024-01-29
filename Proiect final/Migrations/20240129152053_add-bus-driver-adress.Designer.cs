@@ -12,8 +12,8 @@ using Proiect_final.Data;
 namespace Proiect_final.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    [Migration("20240129114336_add-bus-driver")]
-    partial class addbusdriver
+    [Migration("20240129152053_add-bus-driver-adress")]
+    partial class addbusdriveradress
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,45 @@ namespace Proiect_final.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Proiect_final.Models.Adress.Adress", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DriverId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DriverId")
+                        .IsUnique()
+                        .HasFilter("[DriverId] IS NOT NULL");
+
+                    b.ToTable("Adresses");
+                });
 
             modelBuilder.Entity("Proiect_final.Models.Bus.Bus", b =>
                 {
@@ -88,6 +127,15 @@ namespace Proiect_final.Migrations
                     b.ToTable("Drivers");
                 });
 
+            modelBuilder.Entity("Proiect_final.Models.Adress.Adress", b =>
+                {
+                    b.HasOne("Proiect_final.Models.Driver.Driver", "Driver")
+                        .WithOne("Adress")
+                        .HasForeignKey("Proiect_final.Models.Adress.Adress", "DriverId");
+
+                    b.Navigation("Driver");
+                });
+
             modelBuilder.Entity("Proiect_final.Models.Driver.Driver", b =>
                 {
                     b.HasOne("Proiect_final.Models.Bus.Bus", "Bus")
@@ -100,6 +148,12 @@ namespace Proiect_final.Migrations
             modelBuilder.Entity("Proiect_final.Models.Bus.Bus", b =>
                 {
                     b.Navigation("Drivers");
+                });
+
+            modelBuilder.Entity("Proiect_final.Models.Driver.Driver", b =>
+                {
+                    b.Navigation("Adress")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
