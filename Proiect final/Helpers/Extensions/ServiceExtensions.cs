@@ -1,5 +1,7 @@
-﻿using Proiect_final.Repositories.BusRepository;
+﻿using Proiect_final.Repositories.AdressRepository;
+using Proiect_final.Repositories.BusRepository;
 using Proiect_final.Repositories.DriverRepository;
+using Proiect_final.Services.AdressService;
 using Proiect_final.Services.BusService;
 using Proiect_final.Services.DriverService;
 
@@ -12,6 +14,7 @@ namespace Proiect_final.Helpers.Extensions
             //services.AddTransient<IRepository, Repository>();
             services.AddTransient<IBusRepository, BusRepository>();
             services.AddTransient<IDriverRepository, DriverRepository>();
+            services.AddTransient<IAdressRepository, AdressRepository>();
             return services;
         }
 
@@ -20,6 +23,7 @@ namespace Proiect_final.Helpers.Extensions
             //services.AddTransient<IService,Service>();
             services.AddTransient<IBusService, BusService>();
             services.AddTransient<IDriverService, DriverService>();
+            services.AddTransient<IAdressService, AdressService>();
             return services;
         }
     }

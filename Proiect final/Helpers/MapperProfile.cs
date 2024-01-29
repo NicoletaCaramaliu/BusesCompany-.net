@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Proiect_final.Models.Adress;
+using Proiect_final.Models.Adress.DTO;
 using Proiect_final.Models.Bus;
 using Proiect_final.Models.Bus.DTO;
 using Proiect_final.Models.Driver;
@@ -10,11 +12,15 @@ namespace Proiect_final.Helpers
     {
         public MapperProfile()
         {
-            CreateMap<Bus, BusResponseDto>();
+            CreateMap<Bus, BusResponseDto>()
+                .ForMember(dest => dest.DriversNames, opt => opt.MapFrom(src => src.Drivers.Select(driver => driver.Name)));
             CreateMap<BusRequestDto, Bus>();
 
             CreateMap<Driver, DriverResponseDto>();
             CreateMap<DriverRequestDto, Driver>();
+
+            CreateMap<Adress, AdressResponseDto>();
+            CreateMap<AdressRequestDto, Adress>();
         }
 
     }
