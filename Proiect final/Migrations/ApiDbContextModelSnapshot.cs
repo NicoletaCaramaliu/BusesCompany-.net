@@ -52,6 +52,52 @@ namespace Proiect_final.Migrations
 
                     b.ToTable("Bus", (string)null);
                 });
+
+            modelBuilder.Entity("Proiect_final.Models.Driver.Driver", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("BusId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("HireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusId");
+
+                    b.ToTable("Drivers");
+                });
+
+            modelBuilder.Entity("Proiect_final.Models.Driver.Driver", b =>
+                {
+                    b.HasOne("Proiect_final.Models.Bus.Bus", "Bus")
+                        .WithMany("Drivers")
+                        .HasForeignKey("BusId");
+
+                    b.Navigation("Bus");
+                });
+
+            modelBuilder.Entity("Proiect_final.Models.Bus.Bus", b =>
+                {
+                    b.Navigation("Drivers");
+                });
 #pragma warning restore 612, 618
         }
     }
