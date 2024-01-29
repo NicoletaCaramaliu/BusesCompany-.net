@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Proiect_final.Data;
 using Proiect_final.Models.Bus;
 using Proiect_final.Models.Bus.DTO;
+using Proiect_final.Models.Driver.DTO;
 using Proiect_final.Services.BusService;
 
 namespace Proiect_final.Controllers
@@ -11,13 +12,15 @@ namespace Proiect_final.Controllers
     [Route("[controller]")]
     public class BusController : ControllerBase
     {
+        private readonly ApiDbContext _ApiDbContext;
         private readonly IBusService _busService;
         private readonly IMapper _mapper;
 
-        public BusController(IBusService busService, IMapper mapper)
+        public BusController(IBusService busService, IMapper mapper, ApiDbContext _ApiDbContext)
         {
             _busService = busService;
             _mapper = mapper;
+            _ApiDbContext = _ApiDbContext;
         }
 
         [HttpGet]
@@ -46,7 +49,7 @@ namespace Proiect_final.Controllers
             return Ok(busResponseDto);
         }
 
-        //delet bus
+        //delete bus
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> DeleteBus(Guid id)
         {
@@ -90,7 +93,7 @@ namespace Proiect_final.Controllers
             return Ok(busResponseDto);
         }
 
-        //get buses number of buses group by capacity
+        //get buses group by capacity
         [HttpGet("capacity")]
         public async Task<ActionResult<IEnumerable<BusResponseDto>>> GetBusesGroupByCapacity()
         {
@@ -101,10 +104,14 @@ namespace Proiect_final.Controllers
         }
 
 
-
+        //get a list of buses numbers having the same capacity
+        [HttpGet("capacity/numbers")]
+        public async Task<ActionResult<IEnumerable<string>>> GetBusesNumbersGroupByCapacity(int capacity)
+        {
+            var busesNumbers = await _busService.GetBusesNumbersByCapacity(capacity);
+            return Ok(busesNumbers);
+        }
     }
 
-        
-    
-            
+
 }
