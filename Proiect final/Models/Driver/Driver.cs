@@ -11,7 +11,9 @@ namespace Proiect_final.Models.Driver
 
         //one driver can drive only one bus
         public Guid? BusId { get; set; }
+
         public Bus.Bus? Bus { get; set; }
+        public Adress.Adress Adress { get; set; }
 
     }
 }

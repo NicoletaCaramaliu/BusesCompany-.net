@@ -8,5 +8,6 @@
         public DateTime HireDate { get; set; }
 
         public Guid? BusId { get; set; }
+
     }
 }
