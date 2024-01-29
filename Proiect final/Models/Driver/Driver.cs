@@ -7,10 +7,11 @@ namespace Proiect_final.Models.Driver
         // add name, age, list of buses, etc.
         public string Name { get; set; }
         public int Age { get; set; }
+        public DateTime HireDate { get; set; }
 
         //one driver can drive only one bus
-        public Guid BusId { get; set; }
-        public Bus.Bus Bus { get; set; }
+        public Guid? BusId { get; set; }
+        public Bus.Bus? Bus { get; set; }
 
     }
 }
