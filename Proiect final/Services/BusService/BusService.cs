@@ -15,7 +15,7 @@ namespace Proiect_final.Services.BusService
         // get all buses
         public async Task<IEnumerable<Bus>> GetAllBuses()
         {
-            return await _busRepository.GetAllAsync();
+            return await _busRepository.GetAllBusesAsync();
         }
 
         // create bus

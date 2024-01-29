@@ -19,5 +19,10 @@ namespace Proiect_final.Services.BusService
 
         //update bus
         Task UpdateBus(Bus bus);
+
+        //get buses by capacity
+        Task<List<string>> GetBusesNumbersByCapacity(int capacity);
+
+
     }
 }
