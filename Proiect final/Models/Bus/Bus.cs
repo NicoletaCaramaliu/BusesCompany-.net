@@ -10,7 +10,10 @@ namespace Proiect_final.Models.Bus
         public string Route { get; set; }
 
         //one bus can be driven by many drivers 
-        public ICollection<Driver.Driver> Drivers { get; set; }
+        public ICollection<Driver.Driver>? Drivers { get; set; }
+
+        //a bus can be in many repair histories
+        public ICollection<RepairHistory.RepairHistory>? RepairHistories { get; set; }
         
     }
 }
