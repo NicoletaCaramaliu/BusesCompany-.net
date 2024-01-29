@@ -51,6 +51,12 @@ namespace Proiect_final.Services.BusService
             await _busRepository.SaveAsync();
         }
 
+        //get buses by capacity
+        public async Task<List<string>> GetBusesNumbersByCapacity(int capacity)
+        {
+            return await _busRepository.GetBusesNumbersByCapacity(capacity);
+        }
+
 
 
     }
