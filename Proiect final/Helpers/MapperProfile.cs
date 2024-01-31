@@ -16,7 +16,9 @@ namespace Proiect_final.Helpers
                 .ForMember(dest => dest.DriversNames, opt => opt.MapFrom(src => src.Drivers.Select(driver => driver.Name)));
             CreateMap<BusRequestDto, Bus>();
 
-            CreateMap<Driver, DriverResponseDto>();
+            CreateMap<Driver, DriverResponseDto>()
+                .ForMember(dest => dest.BusNumber, opt => opt.MapFrom(src => src.Bus.Number))
+                .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Adress.City));
             CreateMap<DriverRequestDto, Driver>();
 
             CreateMap<Adress, AdressResponseDto>();
