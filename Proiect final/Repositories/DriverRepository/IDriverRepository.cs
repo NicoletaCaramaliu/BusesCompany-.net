@@ -8,6 +8,8 @@ namespace Proiect_final.Repositories.DriverRepository
     {
         Task<Driver> CreateDriver(Driver driver, Guid busId);
 
+        Task<IEnumerable<Driver>> GetAllDriversAsync();
+
         //get drivers names ordered by age desc 
         Task<List<string>> GetDriversNamesOrderedByAgeDesc();
 

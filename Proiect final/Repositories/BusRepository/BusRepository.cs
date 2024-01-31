@@ -32,7 +32,7 @@ namespace Proiect_final.Repositories.BusRepository
             var busNumbers = from bus in _table
                              where bus.Capacity == capacity
                              select bus.Number;
-
+            
             return await busNumbers.ToListAsync();
         }
     }

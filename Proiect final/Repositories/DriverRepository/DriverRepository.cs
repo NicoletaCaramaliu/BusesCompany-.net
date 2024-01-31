@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Proiect_final.Data;
+using Proiect_final.Models.Bus;
 using Proiect_final.Models.Driver;
 using Proiect_final.Models.Driver.DTO;
 using Proiect_final.Repositories.BusRepository;
@@ -23,10 +24,19 @@ namespace Proiect_final.Repositories.DriverRepository
         {
 
         }
+        //get all drivers   
+        public async Task<IEnumerable<Driver>> GetAllDriversAsync()
+        {
+            return await _table
+                .Include(d => d.Bus)
+                .Include(d => d.Adress)
+                .ToListAsync();
+        }
 
         public async Task<Driver> CreateDriver(Driver driver, Guid busId)
         {
             var bus = await _context.Buses.FindAsync(busId);
+
 
             if (bus == null)
             {
@@ -51,7 +61,7 @@ namespace Proiect_final.Repositories.DriverRepository
             return await driversNames.ToListAsync();
         }
 
-
+        
 
     }
 }
