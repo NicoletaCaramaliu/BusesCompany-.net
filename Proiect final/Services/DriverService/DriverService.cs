@@ -19,7 +19,7 @@ namespace Proiect_final.Services.DriverService
         //get all drivers
         public async Task<IEnumerable<Driver>> GetAllDrivers()
         {
-            return await _driverRepository.GetAllAsync();
+            return await _driverRepository.GetAllDriversAsync();
         }
 
         //create driver
