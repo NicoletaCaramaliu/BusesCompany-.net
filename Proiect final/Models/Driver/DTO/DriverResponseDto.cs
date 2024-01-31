@@ -7,7 +7,8 @@
         public int Age { get; set; }
         public DateTime HireDate { get; set; }
 
-        public Guid? BusId { get; set; }
+        public string? BusNumber { get; set; }
+        public string? City { get; set; }
 
     }
 }

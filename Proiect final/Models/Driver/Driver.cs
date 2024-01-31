@@ -13,7 +13,7 @@ namespace Proiect_final.Models.Driver
         public Guid? BusId { get; set; }
 
         public Bus.Bus? Bus { get; set; }
-        public Adress.Adress Adress { get; set; }
+        public Adress.Adress? Adress { get; set; }
 
     }
 }
