@@ -18,8 +18,10 @@ namespace Proiect_final.Helpers
         {
             CreateMap<Bus, BusResponseDto>()
                 .ForMember(dest => dest.DriversNames, opt => opt.MapFrom(src => src.Drivers.Select(driver => driver.Name)))
-                .ForMember(dest => dest.DefectionsNames, opt => opt.MapFrom(src => src.RepairHistories.Select(repairHistory => repairHistory.Defection.DefectionName)));
-                
+                .ForMember(dest => dest.DefectionsNames, opt => opt.MapFrom(src =>
+                    src.RepairHistories
+                        .Where(repairHistory => repairHistory.Defection != null)
+                        .Select(repairHistory => repairHistory.Defection.DefectionName)));
             CreateMap<BusRequestDto, Bus>();
 
             CreateMap<Driver, DriverResponseDto>()
@@ -33,7 +35,9 @@ namespace Proiect_final.Helpers
             CreateMap<Defection, DefectionResponseDto>();
             CreateMap<DefectionRequestDto, Defection>();
 
-            CreateMap<RepairHistory, RepairHistoryResponseDto>();
+            CreateMap<RepairHistory, RepairHistoryResponseDto>()
+                .ForMember(dest => dest.BusNumber, opt => opt.MapFrom(src => src.Bus.Number))
+                .ForMember(dest => dest.DefectionName, opt => opt.MapFrom(src => src.Defection.DefectionName));
             CreateMap<RepairHistoryRequestDto, RepairHistory>();
         }
 
