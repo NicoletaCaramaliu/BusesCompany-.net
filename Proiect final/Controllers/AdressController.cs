@@ -44,5 +44,34 @@ namespace Proiect_final.Controllers
             var adressResponseDto = _mapper.Map<AdressResponseDto>(adress);
             return Ok(adressResponseDto);
         }
+
+        //update adress
+        [HttpPut("{id:guid}")]
+        public async Task<ActionResult<AdressResponseDto>> UpdateAdress(Guid id, AdressRequestDto adressRequestDto)
+        {
+            var adress = await _adressService.GetAdressById(id);
+            if (adress == null)
+            {
+                return NotFound($"Adress with ID {id} not found");
+            }
+            _mapper.Map(adressRequestDto, adress);
+            await _adressService.UpdateAdress(adress);
+            var adressResponseDto = _mapper.Map<AdressResponseDto>(adress);
+            return Ok(adressResponseDto);
+
+        }
+
+        //delete adress
+        [HttpDelete("{id:guid}")]
+        public async Task<ActionResult> DeleteAdress(Guid id)
+        {
+            var deletedAdress = await _adressService.GetAdressById(id);
+            if (deletedAdress == null)
+            {
+                return NotFound($"Adress with ID {id} not found");
+            }
+            await _adressService.DeleteAdress(deletedAdress);
+            return NoContent();
+        }
     }
 }
