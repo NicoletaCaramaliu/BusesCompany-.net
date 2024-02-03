@@ -7,7 +7,10 @@
         public int Capacity { get; set; }
         public string Route { get; set; }
 
+
         public IEnumerable<string> DriversNames { get; set; }
+
+        public IEnumerable<string> DefectionsNames { get; set; }
             
     }
 }
