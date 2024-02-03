@@ -23,6 +23,7 @@ namespace Proiect_final.Repositories.BusRepository
         {
             return await _table
                 .Include(b => b.Drivers)
+                .Include(b => b.RepairHistories)
                 .ToListAsync();
         }
 
