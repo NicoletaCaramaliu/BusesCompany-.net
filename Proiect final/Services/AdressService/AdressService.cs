@@ -34,5 +34,25 @@ namespace Proiect_final.Services.AdressService
         {
             return await _adressRepository.GetAdressByDriverId(id);
         }
+
+        //get adress by id
+        public async Task<Adress> GetAdressById(Guid id)
+        {
+            return await _adressRepository.FindByIdAsync(id);
+        }
+
+        //update adress
+        public async Task UpdateAdress(Adress adress)
+        {
+            _adressRepository.Update(adress);
+            await _adressRepository.SaveAsync();
+        }
+
+        //delete adress
+        public async Task DeleteAdress(Adress adress)
+        {
+            _adressRepository.Delete(adress);
+            await _adressRepository.SaveAsync();
+        }
     }
 }

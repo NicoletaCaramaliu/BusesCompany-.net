@@ -12,5 +12,14 @@ namespace Proiect_final.Services.AdressService
 
         //get adress by driver id
         Task<Adress> GetAdressByDriverId(Guid driverId);
+
+        //get adress by id
+        Task<Adress> GetAdressById(Guid id);
+
+        //update adress
+        Task UpdateAdress(Adress adress);
+
+        //delete adress
+        Task DeleteAdress(Adress adress);
     }
 }
