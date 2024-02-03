@@ -16,6 +16,7 @@ namespace Proiect_final.Repositories.BusRepository
         {
             return await _table
                 .Include(b => b.Drivers)
+                .Include(b => b.RepairHistories)
                 .FirstOrDefaultAsync(b => b.Id == busId);
         }
 
@@ -24,6 +25,7 @@ namespace Proiect_final.Repositories.BusRepository
             return await _table
                 .Include(b => b.Drivers)
                 .Include(b => b.RepairHistories)
+                .ThenInclude(r => r.Defection)
                 .ToListAsync();
         }
 
