@@ -9,5 +9,14 @@ namespace Proiect_final.Services.RepairHistoryService
 
         //create a repair history
         Task CreateRepairHistory(RepairHistory repairHistory);
+        
+        //get repair history by id
+        Task<RepairHistory> GetRepairHistoryById(Guid id);
+
+        //update repair history
+        Task UpdateRepairHistory(RepairHistory repairHistory);
+
+        //delete repair history
+        Task DeleteRepairHistory(RepairHistory repairHistory);
     }
 }
