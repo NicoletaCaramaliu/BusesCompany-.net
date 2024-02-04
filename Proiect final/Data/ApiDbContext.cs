@@ -43,8 +43,7 @@ namespace Proiect_final.Data
                 .HasForeignKey<Adress>(a => a.DriverId);
 
             //many to many relationship between bus and defection, association table is RepairHistory
-            modelBuilder.Entity<RepairHistory>()
-                .HasKey(r => new {r.BusId, r.DefectionId});
+
             modelBuilder.Entity<RepairHistory>()
                 .HasOne(r => r.Bus)
                 .WithMany(b => b.RepairHistories)
