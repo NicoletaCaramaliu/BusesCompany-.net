@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Proiect_final.Data;
 using Proiect_final.Models.Bus;
@@ -23,7 +24,7 @@ namespace Proiect_final.Controllers
             _ApiDbContext = _ApiDbContext;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<IEnumerable<BusResponseDto>>> GetAllBuses()
         {
             var buses = await _busService.GetAllBuses();
@@ -31,7 +32,7 @@ namespace Proiect_final.Controllers
             return Ok(busesDto);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "Admin")]
         public async Task<ActionResult<BusResponseDto>> CreateBus(BusRequestDto busRequestDto)
         {
             var bus = _mapper.Map<Bus>(busRequestDto);
@@ -50,7 +51,7 @@ namespace Proiect_final.Controllers
         }
 
         //delete bus
-        [HttpDelete("{id:guid}")]
+        [HttpDelete("{id:guid}"), Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteBus(Guid id)
         {
             var deletedBus = await _busService.GetBusById(id);
@@ -111,6 +112,8 @@ namespace Proiect_final.Controllers
             var busesNumbers = await _busService.GetBusesNumbersByCapacity(capacity);
             return Ok(busesNumbers);
         }
+
+        
     }
 
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Proiect_final.Data;
 using Proiect_final.Models.Driver;
@@ -23,7 +24,7 @@ namespace Proiect_final.Controllers
             _ApiDbContext = _ApiDbContext;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize(Roles ="Admin, User")]
         public async Task<ActionResult<IEnumerable<DriverResponseDto>>> GetAllDrivers()
         {
             var drivers = await _driverService.GetAllDrivers();
@@ -31,7 +32,7 @@ namespace Proiect_final.Controllers
             return Ok(driversDto);
         }
 
-        [HttpPost("{busId:guid}")]
+        [HttpPost("{busId:guid}"), Authorize(Roles = "Admin")]
         public async Task<ActionResult<DriverResponseDto>> CreateDriver(DriverRequestDto driverRequestDto, Guid busId)
         {
             var driver = _mapper.Map<Driver>(driverRequestDto);
@@ -67,7 +68,7 @@ namespace Proiect_final.Controllers
         }
 
         //delete driver
-        [HttpDelete("{id:guid}")]
+        [HttpDelete("{id:guid}"), Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteDriver(Guid id)
         {
             var deletedDriver = await _driverService.GetDriverById(id);
@@ -85,6 +86,14 @@ namespace Proiect_final.Controllers
         {
             var driversNames = await _driverService.GetDriversNamesOrderedByAgeDesc();
             return Ok(driversNames);
+        }
+
+        //get defection names by driver id
+        [HttpGet("DefectionNames/{id:guid}")]
+        public async Task<ActionResult<List<string>>> GetDefectionNamesByDriver(Guid id)
+        {
+            var defectionNames = await _driverService.GetDefectionNames(id);
+            return Ok(defectionNames);
         }
     }
 }

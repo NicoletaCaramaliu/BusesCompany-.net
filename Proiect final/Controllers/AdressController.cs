@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Proiect_final.Models.Adress;
 using Proiect_final.Models.Adress.DTO;
@@ -27,7 +28,7 @@ namespace Proiect_final.Controllers
             return Ok(adressesDto);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "User")]
         public async Task<ActionResult<AdressResponseDto>> CreateAdress(AdressRequestDto adressRequestDto)
         {
             var adress = _mapper.Map<Adress>(adressRequestDto);
@@ -62,7 +63,7 @@ namespace Proiect_final.Controllers
         }
 
         //delete adress
-        [HttpDelete("{id:guid}")]
+        [HttpDelete("{id:guid}"), Authorize(Roles = "User")]
         public async Task<ActionResult> DeleteAdress(Guid id)
         {
             var deletedAdress = await _adressService.GetAdressById(id);
