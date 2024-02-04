@@ -21,5 +21,8 @@ namespace Proiect_final.Services.DriverService
         //get drivers names ordered by age desc
         Task<List<string>> GetDriversNamesOrderedByAgeDesc();
 
+        //get defection names
+        Task<List<string>> GetDefectionNames(Guid driverId);
+
     }
 }

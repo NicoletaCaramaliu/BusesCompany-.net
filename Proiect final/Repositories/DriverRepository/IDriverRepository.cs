@@ -13,5 +13,8 @@ namespace Proiect_final.Repositories.DriverRepository
         //get drivers names ordered by age desc 
         Task<List<string>> GetDriversNamesOrderedByAgeDesc();
 
+        //defection names
+        Task<List<string>> GetDefectionNamesByDriverId(Guid driverId);
+
     }
 }

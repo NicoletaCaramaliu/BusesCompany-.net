@@ -61,7 +61,18 @@ namespace Proiect_final.Repositories.DriverRepository
             return await driversNames.ToListAsync();
         }
 
-        
+        //function using join to get the defection names of the bus the driver is driving
+        public async Task<List<string>> GetDefectionNamesByDriverId(Guid driverId)
+        {
+            var defectionNames = from driver in _table
+                                 join bus in _context.Buses on driver.BusId equals bus.Id
+                                 join repairHistory in _context.RepairHistories on bus.Id equals repairHistory.BusId
+                                 join defection in _context.Defections on repairHistory.DefectionId equals defection.Id
+                                 where driver.Id == driverId
+                                 select defection.DefectionName;
+
+            return await defectionNames.ToListAsync();
+        }
 
     }
 }

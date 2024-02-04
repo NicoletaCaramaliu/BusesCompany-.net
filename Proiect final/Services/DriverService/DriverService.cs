@@ -1,4 +1,5 @@
-﻿using Proiect_final.Models.Driver;
+﻿using Microsoft.EntityFrameworkCore;
+using Proiect_final.Models.Driver;
 using Proiect_final.Models.Driver.DTO;
 using Proiect_final.Repositories.AdressRepository;
 using Proiect_final.Repositories.DriverRepository;
@@ -54,5 +55,12 @@ namespace Proiect_final.Services.DriverService
             return await _driverRepository.GetDriversNamesOrderedByAgeDesc();
         }
 
+        //get defection names 
+        public async Task<List<string>> GetDefectionNames(Guid driverId)
+        {
+            return await _driverRepository.GetDefectionNamesByDriverId(driverId);
+        }
     }
+
 }
+

@@ -38,6 +38,9 @@ namespace Proiect_final.Repositories.BusRepository
             
             return await busNumbers.ToListAsync();
         }
+
+
+
     }
     
 }

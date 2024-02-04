@@ -1,4 +1,5 @@
 ﻿using Proiect_final.Models.Bus;
+using Proiect_final.Models.Driver;
 using Proiect_final.Repositories.BusRepository;
 
 namespace Proiect_final.Services.BusService
@@ -56,6 +57,7 @@ namespace Proiect_final.Services.BusService
         {
             return await _busRepository.GetBusesNumbersByCapacity(capacity);
         }
+
 
 
 
