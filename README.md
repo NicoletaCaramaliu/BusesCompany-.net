@@ -9,3 +9,4 @@ Backend:
 Backend extra:
   ✅ Autentificare cu Refresh Token
   ✅ Specification Pattern
+  ✅ Unit Of Work
