@@ -7,5 +7,5 @@ Backend:
   ✅ Sa se foloseasca repository pattern + Service
 
 Backend extra:
-  ✅ Autentificare cu Refreh Token
+  ✅ Autentificare cu Refresh Token
   ✅ Specification Pattern
