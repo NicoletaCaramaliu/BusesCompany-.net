@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Proiect_final;
 using Proiect_final.Data;
 using Proiect_final.Helpers;
 using Proiect_final.Helpers.Extensions;
@@ -57,6 +59,8 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
     };
 });
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -65,6 +69,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapHub<ChatHub>("chat-hub");
+
+app.MapPost("broadcast", async (string message, IHubContext<ChatHub, IChatClient> context) =>
+{
+    await context.Clients.All.ReceiveMessage(message);
+
+    return Results.NoContent();
+}
+);
 
 app.UseHttpsRedirection();
 
