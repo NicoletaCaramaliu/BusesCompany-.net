@@ -30,7 +30,7 @@ namespace Proiect_final.Controllers
 
         [HttpGet, Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<IEnumerable<BusResponseDto>>> GetAllBuses()
-        {
+        { 
             var buses = await _busService.GetAllBuses();
             var busesDto = _mapper.Map<IEnumerable<BusResponseDto>>(buses);
             return Ok(busesDto);

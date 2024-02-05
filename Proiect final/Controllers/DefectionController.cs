@@ -18,13 +18,15 @@ namespace Proiect_final.Controllers
             _mapper = mapper;
         }
 
+
         [HttpGet]
         public async Task<IActionResult> GetAllDefections()
-        {
+        { 
             var defections = await _defectionService.GetAllDefections();
             var defectionsDto = _mapper.Map<IEnumerable<DefectionResponseDto>>(defections);
             return Ok(defectionsDto);
         }
+
 
         [HttpPost]
         public async Task<ActionResult<DefectionResponseDto>> CreateDefection(DefectionRequestDto defectionRequestDto)
