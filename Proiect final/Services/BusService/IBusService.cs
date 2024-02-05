@@ -1,4 +1,6 @@
-﻿using Proiect_final.Models.Bus;
+﻿using Microsoft.AspNetCore.Mvc;
+using Proiect_final.Models.Bus;
+using Proiect_final.Specification;
 
 namespace Proiect_final.Services.BusService
 {
@@ -22,9 +24,6 @@ namespace Proiect_final.Services.BusService
 
         //get buses by capacity
         Task<List<string>> GetBusesNumbersByCapacity(int capacity);
-
-
-
-
+        ActionResult<List<Bus>> GetBusesSpecification(MilitariBuses specification);
     }
 }

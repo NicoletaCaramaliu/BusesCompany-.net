@@ -1,6 +1,8 @@
-﻿using Proiect_final.Models.Bus;
+﻿using Microsoft.AspNetCore.Mvc;
+using Proiect_final.Models.Bus;
 using Proiect_final.Models.Driver;
 using Proiect_final.Repositories.BusRepository;
+using Proiect_final.Specification;
 
 namespace Proiect_final.Services.BusService
 {
@@ -58,7 +60,11 @@ namespace Proiect_final.Services.BusService
             return await _busRepository.GetBusesNumbersByCapacity(capacity);
         }
 
-
+        //get buses by specification
+        public ActionResult<List<Bus>> GetBusesSpecification(MilitariBuses specification)
+        {
+            return _busRepository.GetBusesBySpecification(specification);
+        }
 
 
     }

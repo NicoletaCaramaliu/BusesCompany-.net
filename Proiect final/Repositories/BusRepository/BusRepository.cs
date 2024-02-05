@@ -2,14 +2,16 @@
 using Proiect_final.Data;
 using Proiect_final.Models.Bus;
 using Proiect_final.Repositories.GenericRepository;
+using Proiect_final.Specification;
 
 namespace Proiect_final.Repositories.BusRepository
 {
     public class BusRepository : GenericRepository<Bus>, IBusRepository
     {
+        private readonly ApiDbContext _context;
         public BusRepository(ApiDbContext context) : base(context)
         {
-
+            _context = context;
         }
 
         public async Task<Bus> FindBusByIdAsync(Guid busId)
@@ -37,6 +39,13 @@ namespace Proiect_final.Repositories.BusRepository
                              select bus.Number;
             
             return await busNumbers.ToListAsync();
+        }
+
+        public List<Bus> GetBusesBySpecification(Specification<Bus> specification)
+        {
+            return SpecificationQueryBuilder
+                .GetQuery(_context.Buses, specification)
+                .ToList();
         }
 
 

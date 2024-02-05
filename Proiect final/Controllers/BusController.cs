@@ -6,6 +6,10 @@ using Proiect_final.Models.Bus;
 using Proiect_final.Models.Bus.DTO;
 using Proiect_final.Models.Driver.DTO;
 using Proiect_final.Services.BusService;
+using Proiect_final.Specification;
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using System.Xml;
 
 namespace Proiect_final.Controllers
 {
@@ -113,7 +117,26 @@ namespace Proiect_final.Controllers
             return Ok(busesNumbers);
         }
 
-        
+        //specification pattern
+        [HttpGet("militari")]
+        public ActionResult<List<Bus>> GetMilitariBuses()
+        {
+            var specification = new MilitariBuses();
+
+            var buses = _busService.GetBusesSpecification(specification);
+
+            var jsonOptions = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            };
+
+            var jsonString = JsonSerializer.Serialize(buses, jsonOptions);
+
+            return Content(jsonString, "application/json");
+        }
+
+
+
     }
 
 
