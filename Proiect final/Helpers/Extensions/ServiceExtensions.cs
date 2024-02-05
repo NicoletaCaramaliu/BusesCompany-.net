@@ -1,4 +1,5 @@
-﻿using Proiect_final.Repositories.AdressRepository;
+﻿using Proiect_final.Data.UnitOfWork;
+using Proiect_final.Repositories.AdressRepository;
 using Proiect_final.Repositories.BusRepository;
 using Proiect_final.Repositories.DefectionRepository;
 using Proiect_final.Repositories.DriverRepository;
@@ -32,7 +33,9 @@ namespace Proiect_final.Helpers.Extensions
             services.AddTransient<IAdressService, AdressService>();
             services.AddTransient<IDefectionService, DefectionService>();
             services.AddTransient<IRepairHistoryService, RepairHistoryService>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             return services;
         }
+
     }
 }

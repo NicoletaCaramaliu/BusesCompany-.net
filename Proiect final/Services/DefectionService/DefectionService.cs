@@ -1,4 +1,5 @@
-﻿using Proiect_final.Models.Defection;
+﻿using Proiect_final.Data.UnitOfWork;
+using Proiect_final.Models.Defection;
 using Proiect_final.Repositories.DefectionRepository;
 
 namespace Proiect_final.Services.DefectionService
@@ -6,9 +7,11 @@ namespace Proiect_final.Services.DefectionService
     public class DefectionService : IDefectionService
     {
         private readonly IDefectionRepository _defectionRepository;
-        public DefectionService(IDefectionRepository defectionRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public DefectionService(IDefectionRepository defectionRepository, IUnitOfWork unitOfWork)
         {
             _defectionRepository = defectionRepository;
+            _unitOfWork = unitOfWork;
         }
 
         //get all defections
@@ -21,7 +24,7 @@ namespace Proiect_final.Services.DefectionService
         public async Task CreateDefection(Defection defection)
         {
             await _defectionRepository.CreateAsync(defection);
-            await _defectionRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
         }
 
         //get defection by id
@@ -34,14 +37,14 @@ namespace Proiect_final.Services.DefectionService
         public async Task UpdateDefection(Defection defection)
         {
             _defectionRepository.Update(defection);
-            await _defectionRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
         }
 
         //delete defection
         public async Task DeleteDefection(Defection defection)
         {
             _defectionRepository.Delete(defection);
-            await _defectionRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
         }
     }
 }

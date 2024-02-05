@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Proiect_final.Data.UnitOfWork;
 using Proiect_final.Models.Bus;
 using Proiect_final.Models.Driver;
 using Proiect_final.Repositories.BusRepository;
@@ -9,10 +10,12 @@ namespace Proiect_final.Services.BusService
     public class BusService : IBusService
     {
         private readonly IBusRepository _busRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public BusService(IBusRepository busRepository)
+        public BusService(IBusRepository busRepository, IUnitOfWork unitOfWork)
         {
             _busRepository = busRepository;
+            _unitOfWork = unitOfWork;
         }
 
         // get all buses
@@ -25,7 +28,7 @@ namespace Proiect_final.Services.BusService
         public async Task CreateBus(Bus bus)
         {
             await _busRepository.CreateAsync(bus);
-            await _busRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
         }
 
         // get bus by id
@@ -38,7 +41,7 @@ namespace Proiect_final.Services.BusService
         public async Task DeleteBus(Bus bus)
         {
             _busRepository.Delete(bus);
-            await _busRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
         }
 
         //get bus by number
@@ -51,7 +54,7 @@ namespace Proiect_final.Services.BusService
         public async Task UpdateBus(Bus bus)
         {
             _busRepository.Update(bus);
-            await _busRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
         }
 
         //get buses by capacity

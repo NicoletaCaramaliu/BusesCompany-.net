@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Proiect_final.Data.UnitOfWork;
 using Proiect_final.Models.Driver;
 using Proiect_final.Models.Driver.DTO;
 using Proiect_final.Repositories.AdressRepository;
@@ -9,12 +10,12 @@ namespace Proiect_final.Services.DriverService
     public class DriverService : IDriverService
     {
         private readonly IDriverRepository _driverRepository;
-        private readonly IAdressRepository _adressRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DriverService(IDriverRepository driverRepository, IAdressRepository adressRepository)
+        public DriverService(IDriverRepository driverRepository, IUnitOfWork unitOfWork)
         {
             _driverRepository = driverRepository;
-            _adressRepository = adressRepository;
+            _unitOfWork = unitOfWork;
         }
 
         //get all drivers
@@ -39,14 +40,14 @@ namespace Proiect_final.Services.DriverService
         public async Task UpdateDriver(Driver driver)
         {
             _driverRepository.Update(driver);
-            await _driverRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
         }
 
         //delete driver
         public async Task DeleteDriver(Driver driver)
         {
             _driverRepository.Delete(driver);
-            await _driverRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
         }
 
         //get drivers names ordered by age desc

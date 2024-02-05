@@ -1,4 +1,5 @@
-﻿using Proiect_final.Models.Adress;
+﻿using Proiect_final.Data.UnitOfWork;
+using Proiect_final.Models.Adress;
 using Proiect_final.Models.Adress.DTO;
 using Proiect_final.Repositories.AdressRepository;
 using Proiect_final.Services.DriverService;
@@ -8,12 +9,13 @@ namespace Proiect_final.Services.AdressService
     public class AdressService : IAdressService
     {
         private readonly IAdressRepository _adressRepository;
-        private readonly IDriverService _driverService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AdressService(IAdressRepository adressRepository, IDriverService driverService)
-        {
+        public AdressService(IAdressRepository adressRepository, IUnitOfWork unitOfWork)
+        { 
             _adressRepository = adressRepository;
-            _driverService = driverService;
+            _unitOfWork = unitOfWork;
+            
         }
 
         //get all adresses
@@ -26,7 +28,7 @@ namespace Proiect_final.Services.AdressService
         public async Task CreateAdress(Adress adress)
         {
             await _adressRepository.CreateAsync(adress);
-            await _adressRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
         }
 
         //get adress by driver id
@@ -45,14 +47,14 @@ namespace Proiect_final.Services.AdressService
         public async Task UpdateAdress(Adress adress)
         {
             _adressRepository.Update(adress);
-            await _adressRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
         }
 
         //delete adress
         public async Task DeleteAdress(Adress adress)
         {
             _adressRepository.Delete(adress);
-            await _adressRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
         }
     }
 }

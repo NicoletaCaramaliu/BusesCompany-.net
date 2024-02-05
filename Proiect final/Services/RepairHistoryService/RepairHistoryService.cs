@@ -1,4 +1,5 @@
-﻿using Proiect_final.Models.RepairHistory;
+﻿using Proiect_final.Data.UnitOfWork;
+using Proiect_final.Models.RepairHistory;
 using Proiect_final.Repositories.RepairHistoryRepository;
 
 namespace Proiect_final.Services.RepairHistoryService
@@ -6,9 +7,11 @@ namespace Proiect_final.Services.RepairHistoryService
     public class RepairHistoryService : IRepairHistoryService
     {
         private readonly IRepairHistoryRepository _repairHistoryRepository;
-        public RepairHistoryService(IRepairHistoryRepository repairHistoryRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public RepairHistoryService(IRepairHistoryRepository repairHistoryRepository, IUnitOfWork unitOfWork)
         {
             _repairHistoryRepository = repairHistoryRepository;
+            _unitOfWork = unitOfWork;
         }
 
         //get all repair histories
@@ -21,7 +24,7 @@ namespace Proiect_final.Services.RepairHistoryService
         public async Task CreateRepairHistory(RepairHistory repairHistory)
         {
             await _repairHistoryRepository.CreateAsync(repairHistory);
-            await _repairHistoryRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
         }
 
         //get repair history by id
@@ -34,7 +37,7 @@ namespace Proiect_final.Services.RepairHistoryService
         public async Task UpdateRepairHistory(RepairHistory repairHistory)
         {
             _repairHistoryRepository.Update(repairHistory);
-            await _repairHistoryRepository.SaveAsync();
+            await _unitOfWork.SaveAsync();
         }
 
         //delete repair history
